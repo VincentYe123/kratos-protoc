@@ -35,14 +35,13 @@ func main() {
 		&cli.BoolFlag{
 			Name:        "php",
 			Usage:       "whether to use php for generation",
-			Destination: &withEcode,
+			Destination: &withPHP,
 		},
 		&cli.StringFlag{
 			Name:        "out",
 			Usage:       "the generation file out path",
-			DefaultText: ".",
-			Destination: nil,
-			HasBeenSet:  false,
+			Value:		 ".",
+			Destination: &outPath,
 		},
 	}
 	app.Action = func(c *cli.Context) error {

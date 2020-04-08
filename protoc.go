@@ -22,22 +22,24 @@ var (
 	withSwagger bool
 	withEcode   bool
 	withPHP   	bool
+	outPath 	string
 )
 
 func protocAction(ctx *cli.Context) (err error) {
 	if err = checkProtoc(); err != nil {
 		return err
 	}
-	files := []string(ctx.Args().Slice())
-	log.Print(files)
+
+	files := ctx.Args().Slice()
 	if len(files) == 0 {
 		files, _ = filepath.Glob("*.proto")
 	}
-	if !withGRPC && !withBM && !withSwagger && !withEcode {
+	if !withGRPC && !withBM && !withSwagger && !withEcode && !withPHP {
 		withBM = true
 		withGRPC = true
 		withSwagger = true
 		withEcode = true
+		withPHP = true
 	}
 	if withBM {
 		if err = installBMGen(); err != nil {
