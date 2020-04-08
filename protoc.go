@@ -21,8 +21,8 @@ var (
 	withGRPC    bool
 	withSwagger bool
 	withEcode   bool
-	withPHP   	bool
-	outPath 	string
+	withPHP     bool
+	outPath     string
 )
 
 func protocAction(ctx *cli.Context) (err error) {
@@ -34,12 +34,11 @@ func protocAction(ctx *cli.Context) (err error) {
 	if len(files) == 0 {
 		files, _ = filepath.Glob("*.proto")
 	}
-	if !withGRPC && !withBM && !withSwagger && !withEcode && !withPHP {
+	if !withGRPC && !withBM && !withSwagger && !withEcode && !withPHP{
 		withBM = true
 		withGRPC = true
 		withSwagger = true
 		withEcode = true
-		withPHP = true
 	}
 	if withBM {
 		if err = installBMGen(); err != nil {
@@ -54,6 +53,14 @@ func protocAction(ctx *cli.Context) (err error) {
 			return err
 		}
 		if err = genGRPC(files); err != nil {
+			return
+		}
+	}
+	if withPHP {
+		if err = installPHPGen(); err != nil {
+			return
+		}
+		if err = genPHP(files); err != nil {
 			return
 		}
 	}

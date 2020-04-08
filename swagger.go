@@ -6,7 +6,7 @@ import (
 
 const (
 	_getSwaggerGen = "go get -u github.com/bilibili/kratos/tool/protobuf/protoc-gen-bswagger"
-	_swaggerProtoc = "protoc --proto_path=%s --proto_path=%s --proto_path=%s --bswagger_out=:."
+	_swaggerProtoc = `protoc --proto_path=%s --proto_path=%s --proto_path=%s --bswagger_out=:`
 )
 
 func installSwaggerGen() error {
@@ -19,5 +19,5 @@ func installSwaggerGen() error {
 }
 
 func genSwagger(files []string) error {
-	return generate(_swaggerProtoc, files)
+	return generate(_swaggerProtoc + outPath, files)
 }

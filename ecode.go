@@ -6,7 +6,7 @@ import (
 
 const (
 	_getEcodeGen = "go get -u github.com/bilibili/kratos/tool/protobuf/protoc-gen-ecode"
-	_ecodeProtoc = "protoc --proto_path=%s --proto_path=%s --proto_path=%s --ecode_out=:."
+	_ecodeProtoc = `protoc --proto_path=%s --proto_path=%s --proto_path=%s --ecode_out=:`
 )
 
 func installEcodeGen() error {
@@ -19,5 +19,5 @@ func installEcodeGen() error {
 }
 
 func genEcode(files []string) error {
-	return generate(_ecodeProtoc, files)
+	return generate(_ecodeProtoc + outPath, files)
 }
