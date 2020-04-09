@@ -10,7 +10,8 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "protc"
-	app.Usage = "protobuf生成工具"
+	app.Usage = "protobuf 生成工具"
+	app.Version = "0.0.1"
 	app.Flags = []cli.Flag{
 		&cli.BoolFlag{
 			Name:        "bm",

@@ -30,7 +30,7 @@ func protocAction(ctx *cli.Context) (err error) {
 		return err
 	}
 
-	files := ctx.Args().Slice()
+	files := []string(ctx.Args())
 	if len(files) == 0 {
 		files, _ = filepath.Glob("*.proto")
 	}
