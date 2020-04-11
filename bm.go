@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	_getBMGen = "go get -u github.com/bilibili/kratos/tool/protobuf/protoc-gen-bm"
+	_getBMGen = "go get -u github.com/go-kratos/kratos/tool/protobuf/protoc-gen-bm"
 	_bmProtoc = `protoc --proto_path=%s --proto_path=%s --proto_path=%s --bm_out=:`
 )
 
@@ -19,5 +19,10 @@ func installBMGen() error {
 }
 
 func genBM(files []string) error {
-	return generate(_bmProtoc + outPath, files)
+	path := outPath + "/go"
+	err := checkPath(path)
+	if err != nil {
+		return err
+	}
+	return generate(_bmProtoc+path, files)
 }

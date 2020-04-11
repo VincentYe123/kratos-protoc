@@ -9,11 +9,11 @@ import (
 var gppp string
 
 const (
-	_phpProtoc = `protoc --proto_path=%s --proto_path=%s --proto_path=%s --php_out=:`
+	_phpProtoc     = `protoc --proto_path=%s --proto_path=%s --proto_path=%s --php_out=:`
 	_phpGrpcProtoc = "protoc --proto_path=%s --proto_path=%s --proto_path=%s --plugin=protoc-gen-grpc="
 )
 
-func init()  {
+func init() {
 	//get grpc_php_plugin path
 	cmd := exec.Command("which", "grpc_php_plugin")
 	outPut, err := cmd.Output()
@@ -33,10 +33,15 @@ func installPHPGen() error {
 }
 
 func genPHP(files []string) error {
-	err := generate(_phpProtoc + outPath, files)
+	path := outPath + "/php"
+	err := checkPath(path)
+	if err != nil {
+		return err
+	}
+	err = generate(_phpProtoc+path, files)
 	if err != nil {
 		return err
 	}
 
-	return generate(_phpGrpcProtoc + gppp + " --grpc_out=:" + outPath, files)
+	return generate(_phpGrpcProtoc+gppp+" --grpc_out=:"+path, files)
 }

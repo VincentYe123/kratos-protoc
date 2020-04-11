@@ -34,11 +34,12 @@ func protocAction(ctx *cli.Context) (err error) {
 	if len(files) == 0 {
 		files, _ = filepath.Glob("*.proto")
 	}
-	if !withGRPC && !withBM && !withSwagger && !withEcode && !withPHP{
+	if !withGRPC && !withBM && !withSwagger && !withEcode && !withPHP {
 		withBM = true
 		withGRPC = true
 		withSwagger = true
 		withEcode = true
+		withPHP = true
 	}
 	if withBM {
 		if err = installBMGen(); err != nil {
@@ -141,11 +142,11 @@ func goget(url string) error {
 
 func latestKratos() (string, error) {
 	gopath := gopath()
-	ext := path.Join(gopath, "src/github.com/bilibili/kratos/third_party")
+	ext := path.Join(gopath, "src/github.com/go-kratos/kratos/third_party")
 	if _, err := os.Stat(ext); !os.IsNotExist(err) {
 		return ext, nil
 	}
-	baseMod := path.Join(gopath, "pkg/mod/github.com/bilibili")
+	baseMod := path.Join(gopath, "pkg/mod/github.com/go-kratos")
 	files, err := ioutil.ReadDir(baseMod)
 	if err != nil {
 		return "", err
@@ -185,4 +186,17 @@ func gopath() (gp string) {
 		}
 	}
 	return build.Default.GOPATH
+}
+
+func checkPath(path string) error {
+	if _, err := os.Stat(path); err == nil {
+		return nil
+	} else {
+		err := os.MkdirAll(path, 0711)
+
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

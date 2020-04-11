@@ -19,5 +19,10 @@ func installGRPCGen() error {
 }
 
 func genGRPC(files []string) error {
-	return generate(_grpcProtoc + outPath, files)
+	path := outPath + "/go"
+	err := checkPath(path)
+	if err != nil {
+		return err
+	}
+	return generate(_grpcProtoc+path, files)
 }
