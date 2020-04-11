@@ -1,6 +1,6 @@
 # kratos-protoc
 
-> 本项目基于 [kratos](https://github.com/go-kratos/kratos) protoc 工具开发。增加自定义输出目录、按语言分录存放生成文件、支持 PHP 文件生成
+> 本项目基于 [kratos](https://github.com/go-kratos/kratos) protoc 工具开发。增加自定义输出目录、按语言分目录存放生成文件、支持 PHP 文件生成
 
 ## Quick start
 
@@ -10,6 +10,12 @@
 ### Install kratos
 ```
 $> GO111MODULE=on && go get -u github.com/go-kratos/kratos/tool/kratos
+```
+
+### Build
+```
+$> cd $GOPATH/src/kratos-protoc
+$> go build -o $GOPATH/bin/kratos-protoc *.go
 ```
 
 ### Generate 
